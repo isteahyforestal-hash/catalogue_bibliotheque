@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catalogue de la bibliothèque · LOG3550</title>
+  <meta name="description" content="Consultez, recherchez, filtrez et gérez le catalogue de livres de la bibliothèque.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@500;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/data.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <a class="lien-evitement" href="#catalogue">Aller au catalogue</a>
+
+  <header class="entete">
+    <div class="conteneur entete__contenu">
+      <h1 class="entete__titre">Catalogue de la bibliothèque</h1>
+      <nav aria-label="Navigation principale">
+        <ul class="nav">
+          <li><a href="#catalogue">Catalogue</a></li>
+          <li><a href="#ajout">Ajouter un livre</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <section id="catalogue" aria-labelledby="titre-catalogue">
+      <h2 id="titre-catalogue">Catalogue</h2>
+
+      <form id="form-filtres" class="controles" role="search" aria-label="Rechercher dans le catalogue">
+        <div class="champ champ--large">
+          <label for="recherche">Titre ou auteur</label>
+          <input id="recherche" type="search" autocomplete="off" placeholder="Ex. : Roumain, Cosmos…">
+        </div>
+        <div class="champ">
+          <label for="filtre-categorie">Catégorie</label>
+          <select id="filtre-categorie">
+            <option value="">Toutes les catégories</option>
+          </select>
+        </div>
+        <div class="champ">
+          <label for="tri">Trier par</label>
+          <select id="tri">
+            <option value="titre-asc">Titre (A → Z)</option>
+            <option value="titre-desc">Titre (Z → A)</option>
+            <option value="annee-asc">Année (croissante)</option>
+            <option value="annee-desc">Année (décroissante)</option>
+          </select>
+        </div>
+        <div class="controles__actions">
+          <label class="case" for="filtre-dispo">
+            <input id="filtre-dispo" type="checkbox">
+            Disponibles seulement
+          </label>
+          <button id="btn-reinitialiser" class="bouton bouton--secondaire" type="button">Réinitialiser</button>
+        </div>
+      </form>
+
+      <p id="compteur" class="compteur" role="status" tabindex="-1"></p>
+      <p id="message-vide" class="message-vide" hidden></p>
+      <ul id="grille" class="grille" aria-label="Liste des livres"></ul>
+    </section>
+
+    <section id="ajout" class="ajout" aria-labelledby="titre-ajout">
+      <h2 id="titre-ajout">Ajouter un livre</h2>
+
+      <form id="form-ajout" class="formulaire" novalidate>
+        <div class="champ">
+          <label for="titre">Titre</label>
+          <input id="titre" name="titre" type="text" autocomplete="off" required aria-describedby="erreur-titre">
+          <p id="erreur-titre" class="erreur" aria-live="polite"></p>
+        </div>
+        <div class="champ">
+          <label for="auteur">Auteur</label>
+          <input id="auteur" name="auteur" type="text" autocomplete="off" required aria-describedby="erreur-auteur">
+          <p id="erreur-auteur" class="erreur" aria-live="polite"></p>
+        </div>
+        <div class="champ">
+          <label for="annee">Année de publication</label>
+          <input id="annee" name="annee" type="number" inputmode="numeric" required aria-describedby="aide-annee erreur-annee">
+          <p id="aide-annee" class="aide"></p>
+          <p id="erreur-annee" class="erreur" aria-live="polite"></p>
+        </div>
+        <div class="champ">
+          <label for="categorie">Catégorie</label>
+          <select id="categorie" name="categorie" required aria-describedby="erreur-categorie">
+            <option value="">Choisir une catégorie</option>
+          </select>
+          <p id="erreur-categorie" class="erreur" aria-live="polite"></p>
+        </div>
+        <label class="case" for="disponible">
+          <input id="disponible" name="disponible" type="checkbox" checked>
+          Disponible actuellement
+        </label>
+        <div class="formulaire__actions">
+          <button class="bouton bouton--principal" type="submit">Ajouter au catalogue</button>
+        </div>
+        <p id="statut-formulaire" class="statut" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">
+      <p>LOG3550 Développement web · Devoir 1 · ISTEAH</p>
+    </div>
+  </footer>
+
+  <template id="modele-carte">
+    <li class="carte">
+      <article class="carte__corps">
+        <h3 class="carte__titre"></h3>
+        <p class="carte__auteur"></p>
+        <p class="carte__meta"></p>
+        <p><span class="etiquette"></span></p>
+        <div class="carte__actions">
+          <button class="bouton bouton--principal" type="button" data-action="emprunter">Emprunter</button>
+          <button class="bouton bouton--secondaire" type="button" data-action="retourner">Retourner</button>
+          <button class="bouton bouton--danger" type="button" data-action="supprimer">Supprimer</button>
+        </div>
+      </article>
+    </li>
+  </template>
+</body>
+</html>

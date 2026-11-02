@@ -1,0 +1,413 @@
+/* ===== Variables ===== */
+:root {
+  --encre: #14213d;
+  --bleu: #1d3fae;
+  --bleu-fonce: #142d82;
+  --rouge: #b3122f;
+  --rouge-fonce: #8c0e25;
+  --papier: #f3f5f9;
+  --surface: #ffffff;
+  --texte: #1b2333;
+  --texte-doux: #4a5568;
+  --bordure: #c9d1df;
+
+  --dispo-fond: #d9f2e4;
+  --dispo-texte: #0b5d3b;
+  --dispo-bord: #1f9d62;
+  --emprunte-fond: #fde4e8;
+  --emprunte-texte: #8c1228;
+  --emprunte-bord: #c8274a;
+
+  --espace-1: 0.25rem;
+  --espace-2: 0.5rem;
+  --espace-3: 0.75rem;
+  --espace-4: 1rem;
+  --espace-5: 1.5rem;
+  --espace-6: 2.5rem;
+  --rayon: 0.5rem;
+
+  --police-titre: "Literata", Georgia, "Times New Roman", serif;
+  --police-texte: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ===== Base (mobile d'abord) ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--papier);
+  color: var(--texte);
+  font-family: var(--police-texte);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: var(--police-titre);
+  line-height: 1.2;
+}
+
+h2 {
+  margin: 0 0 var(--espace-4);
+  font-size: 1.5rem;
+}
+
+.conteneur {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--espace-4);
+}
+
+main {
+  padding-block: var(--espace-5) var(--espace-6);
+}
+
+/* Lien d'évitement : visible uniquement au focus clavier */
+.lien-evitement {
+  position: absolute;
+  left: var(--espace-2);
+  top: -4rem;
+  z-index: 10;
+  padding: var(--espace-2) var(--espace-4);
+  background: var(--surface);
+  color: var(--bleu-fonce);
+  border-radius: var(--rayon);
+}
+.lien-evitement:focus-visible {
+  top: var(--espace-2);
+}
+
+/* Focus clavier visible partout */
+:focus-visible {
+  outline: 3px solid var(--bleu);
+  outline-offset: 2px;
+}
+
+/* ===== En-tête et pied de page ===== */
+.entete {
+  position: relative;
+  padding-block: var(--espace-5);
+  background: var(--encre);
+  color: #fff;
+}
+/* Liseré bleu et rouge sous l'en-tête */
+.entete::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 0.3rem;
+  background: linear-gradient(90deg, var(--bleu) 50%, var(--rouge) 50%);
+}
+.entete__contenu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-3);
+}
+.entete__titre {
+  margin: 0;
+  font-size: 1.6rem;
+}
+.nav {
+  display: flex;
+  gap: var(--espace-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  padding-block: var(--espace-1);
+  border-bottom: 2px solid transparent;
+}
+.nav a:hover {
+  border-bottom-color: #fff;
+}
+.entete :focus-visible {
+  outline-color: #fff;
+}
+
+.pied {
+  padding-block: var(--espace-5);
+  background: var(--encre);
+  color: #dfe5f2;
+  font-size: 0.9rem;
+}
+.pied p {
+  margin: 0;
+}
+
+/* ===== Formulaires et boutons ===== */
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-1);
+}
+label {
+  font-weight: 600;
+}
+input[type="text"],
+input[type="search"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: var(--espace-3);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  background: var(--surface);
+  color: var(--texte);
+  font: inherit;
+}
+input:hover,
+select:hover {
+  border-color: var(--bleu);
+}
+input[aria-invalid="true"],
+select[aria-invalid="true"] {
+  border-color: var(--rouge);
+  border-width: 2px;
+}
+
+.case {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espace-2);
+  font-weight: 500;
+  cursor: pointer;
+}
+.case input {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--bleu);
+}
+
+.aide {
+  margin: 0;
+  color: var(--texte-doux);
+  font-size: 0.875rem;
+}
+.erreur {
+  margin: 0;
+  color: var(--rouge-fonce);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.erreur:not(:empty) {
+  margin-top: var(--espace-1);
+}
+
+.bouton {
+  padding: var(--espace-2) var(--espace-4);
+  border: 2px solid transparent;
+  border-radius: var(--rayon);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.bouton--principal {
+  background: var(--bleu);
+  color: #fff;
+}
+.bouton--principal:hover:not(:disabled) {
+  background: var(--bleu-fonce);
+}
+.bouton--secondaire {
+  background: var(--surface);
+  color: var(--bleu-fonce);
+  border-color: var(--bleu);
+}
+.bouton--secondaire:hover:not(:disabled) {
+  background: #e8edfb;
+}
+.bouton--danger {
+  background: var(--surface);
+  color: var(--rouge-fonce);
+  border-color: var(--rouge);
+}
+.bouton--danger:hover:not(:disabled) {
+  background: var(--rouge-fonce);
+  color: #fff;
+}
+.bouton:disabled {
+  background: #e4e8ef;
+  color: #6b7280;
+  border-color: #e4e8ef;
+  cursor: not-allowed;
+}
+
+/* ===== Filtres ===== */
+.controles {
+  display: grid;
+  gap: var(--espace-4);
+  padding: var(--espace-4);
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+}
+.controles__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espace-3);
+}
+
+.compteur {
+  margin: var(--espace-5) 0 var(--espace-3);
+  color: var(--texte-doux);
+  font-weight: 600;
+}
+.message-vide {
+  padding: var(--espace-5);
+  background: var(--surface);
+  border: 2px dashed var(--bordure);
+  border-radius: var(--rayon);
+  text-align: center;
+}
+
+/* ===== Cartes ===== */
+.grille {
+  display: grid;
+  grid-template-columns: 1fr; /* téléphone : une colonne */
+  gap: var(--espace-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carte {
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  border-left-width: 0.4rem;
+  border-radius: var(--rayon);
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.carte--disponible {
+  border-left-color: var(--dispo-bord);
+}
+.carte--emprunte {
+  border-left-color: var(--emprunte-bord);
+}
+.carte:hover {
+  box-shadow: 0 6px 16px rgba(20, 33, 61, 0.14);
+  transform: translateY(-2px);
+}
+.carte__corps {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--espace-2);
+  padding: var(--espace-4);
+}
+.carte__corps p {
+  margin: 0;
+}
+.carte__titre {
+  margin: 0;
+  font-size: 1.15rem;
+}
+.carte__auteur {
+  font-weight: 600;
+}
+.carte__meta {
+  color: var(--texte-doux);
+  font-size: 0.9rem;
+}
+.carte__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espace-2);
+  margin-top: auto;
+  padding-top: var(--espace-3);
+}
+
+.etiquette {
+  display: inline-block;
+  padding: 0.15rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.etiquette--disponible {
+  background: var(--dispo-fond);
+  color: var(--dispo-texte);
+}
+.etiquette--emprunte {
+  background: var(--emprunte-fond);
+  color: var(--emprunte-texte);
+}
+
+/* ===== Formulaire d'ajout ===== */
+.ajout {
+  margin-top: var(--espace-6);
+}
+.formulaire {
+  display: grid;
+  gap: var(--espace-4);
+  max-width: 36rem;
+  padding: var(--espace-5);
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+}
+.statut {
+  margin: 0;
+  color: var(--dispo-texte);
+  font-weight: 600;
+}
+
+/* ===== Tablette : deux colonnes ===== */
+@media (min-width: 40em) {
+  .conteneur {
+    padding-inline: var(--espace-5);
+  }
+  .entete__contenu {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .controles {
+    grid-template-columns: 1fr 1fr;
+  }
+  .champ--large,
+  .controles__actions {
+    grid-column: 1 / -1;
+  }
+  .grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===== Ordinateur : trois colonnes ===== */
+@media (min-width: 64em) {
+  .controles {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+  .champ--large {
+    grid-column: auto;
+  }
+  .controles__actions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    gap: var(--espace-5);
+  }
+  .grille {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Respect des préférences de réduction de mouvement */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+  .carte:hover {
+    transform: none;
+  }
+}
